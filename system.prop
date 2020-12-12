@@ -2,6 +2,10 @@
 # system.prop for pa26
 #
 
+# Bluetooth
+bluetooth.hfp.client=1
+qcom.bluetooth.soc=smd
+
 ro.sf.lcd_density=480
 rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
 rild.libargs=-d /dev/smd0

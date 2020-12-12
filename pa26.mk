@@ -219,10 +219,6 @@ PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     libantradio
 
-# Enable Bluetooth HFP
-PRODUCT_PROPERTY_OVERRIDES += \
-    bluetooth.hfp.client=1
-
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
 
