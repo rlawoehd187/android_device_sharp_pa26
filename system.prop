@@ -2,33 +2,64 @@
 # system.prop for pa26
 #
 
+# Audio
+use.dedicated.device.for.voip=true
+ro.config.vc_call_vol_steps=6
+audio_hal.period_size=192
+mm.enable.smoothstreaming=true
+ro.qc.sdk.audio.fluencetype=fluence
+persist.audio.fluence.voicecall=true
+audio.offload.buffer.size.kb=32
+audio.deep_buffer.media=true
+audio.offload.video=true
+av.streaming.offload.enable=true
+audio.offload.multiple.enabled=false
+audio.offload.gapless.enabled=true
+tunnel.audio.encode=true
+media.aac_51_output_enabled=true
+audio.offload.pcm.16bit.enable=true
+audio.offload.pcm.24bit.enable=true
+
 # Bluetooth
 bluetooth.hfp.client=1
 qcom.bluetooth.soc=smd
 
-ro.sf.lcd_density=480
-rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
-rild.libargs=-d /dev/smd0
-ril.subscription.types=NV,RUIM
-persist.data.netmgrd.qos.enable=true
-persist.data.qmi.adb_logmask=0
-persist.radio.apm_sim_not_pwdn=1
-persist.radio.dont_use_dsd=true
-persist.radio.msgtunnel.start=false
-persist.radio.multisim.config=dsds
-persist.radio.rat_on=combine
-ro.telephony.call_ring.multiple=false
-ro.telephony.ril.config=simactivation
+# Camera
+camera2.portability.force_api=1
+media.stagefright.legacyencoder=true
+media.stagefright.less-secure=true
 
+# dpm / cne
+persist.cne.feature=0
+#persist.dpm.feature=3
+
+# Gps
+persist.gps.qc_nlp_in_use=1
+ro.gps.agps_provider=1
+
+# Graphics
+ro.sf.lcd_density=480
 persist.hwc.mdpcomp.enable=true
 persist.timed.enable=true
 ro.opengles.version=196608
-ro.use_data_netmgrd=true
-ro.data.large_tcp_window_size=true
-wifi.interface=wlan0
+
+# Perf
 ro.qualcomm.perf.cores_online=1
 ro.vendor.extension_library=libqti-perfd-client.so
+
+# RIL
+persist.data.netmgrd.qos.enable=true
+persist.data.tcpackprio.enable=true
+persist.radio.add_power_save=1
+persist.radio.apm_sim_not_pwdn=1
+rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
+ro.data.large_tcp_window_size=true
+ro.ril.ext.ecclist=112,911,999,110,122,119,120,000,08,118
 ro.telephony.call_ring.multiple=0
+rild.libargs=-d /dev/smd0
+ro.telephony.default_network=9
+ro.use_data_netmgrd=true
+telephony.lteOnGsmDevice=1
 
 # sensors
 ro.qc.sdk.camera.facialproc=true
@@ -41,18 +72,11 @@ ro.qti.sensors.pick_up=false
 ro.qti.sensors.tilt_detector=true
 ro.qti.sensors.scrn_ortn=true
 
-# dpm / cne
-persist.cne.feature=0
-#persist.dpm.feature=3
-
 ro.sys.sdcardfs=true
-
-# gps
-persist.gps.qc_nlp_in_use=1
-ro.gps.agps_provider=1
 
 # cabl is handled by the panel
 ro.qualcomm.cabl=0
 
-# handle tear down on em redial
-ro.ril.em_redial_vt_failover=true
+# Wifi
+wifi.interface=wlan0
+wifi.supplicant_scan_interval=15

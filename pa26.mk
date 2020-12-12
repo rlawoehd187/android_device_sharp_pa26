@@ -14,213 +14,19 @@
 # limitations under the License.
 #
 
-ifneq ($(QCPATH),)
-$(call inherit-product-if-exists, $(QCPATH)/common/config/device-vendor.mk)
-endif
-
-# overlays
-DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay \
-    vendor/extra/overlays/phone-1080p
+# Device uses high-density artwork where available
+PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
-# Ramdisk
-PRODUCT_PACKAGES += \
-    init.qcom.bt.sh \
-    init.qcom-common.rc \
-    ueventd.qcom.rc \
-    fstab.qcom \
-    init.qcom.rc \
-    init.qcom.sh \
-    init.qcom.power.rc \
-    init.qcom.usb.rc \
-    init.recovery.qcom.rc
+# call dalvik heap config
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
 
-# Emergenry number list
-PRODUCT_PACKAGES += \
-    qcril_cm.db
-
-# Audio
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
-    $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
-    $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml
-
-PRODUCT_PACKAGES += \
-    audiod \
-    audio.a2dp.default \
-    audio_amplifier.msm8974 \
-    audio_policy.msm8974 \
-    audio.primary.msm8974 \
-    audio.r_submix.default \
-    audio.usb.default \
-    libqcompostprocbundle \
-    libqcomvisualizer \
-    libqcomvoiceprocessing \
-    tinymix
-
-PRODUCT_PROPERTY_OVERRIDES += \
-     use.dedicated.device.for.voip=true \
-     ro.config.vc_call_vol_steps=6 \
-     audio_hal.period_size=192 \
-     mm.enable.smoothstreaming=true \
-     ro.qc.sdk.audio.fluencetype=fluence \
-     persist.audio.fluence.voicecall=true \
-     audio.offload.buffer.size.kb=32 \
-     audio.deep_buffer.media=true \
-     audio.offload.video=true \
-     av.streaming.offload.enable=true \
-     audio.offload.multiple.enabled=false \
-     audio.offload.gapless.enabled=true \
-     tunnel.audio.encode=true \
-     media.aac_51_output_enabled=true \
-     audio.offload.pcm.16bit.enable=true \
-     audio.offload.pcm.24bit.enable=true
-
-# First api level, device has been commercially launched
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.first_api_level=19
-
-# Camera
-PRODUCT_PACKAGES += \
-    camera.msm8974 \
-    Snap
-
-# Filesystem
-PRODUCT_PACKAGES += \
-    make_ext4fs \
-    setup_fs
-
-# Gello
-PRODUCT_PACKAGES += \
-    Gello
-
-# Graphics
-PRODUCT_PACKAGES += \
-    copybit.msm8974 \
-    gralloc.msm8974 \
-    hwcomposer.msm8974 \
-    memtrack.msm8974 \
-    liboverlay
-
-# GPS
-PRODUCT_PACKAGES += \
-    gps.msm8974
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
-    $(LOCAL_PATH)/gps/izat.conf:system/etc/izat.conf \
-    $(LOCAL_PATH)/gps/quipc.conf:system/etc/quipc.conf \
-    $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf \
-    $(LOCAL_PATH)/gps/flp.conf:system/etc/flp.conf
-
-# IPC Security config
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
-
-# Light
-PRODUCT_PACKAGES += \
-    lights.msm8974
-
-# Media profile
-PRODUCT_COPY_FILES += \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
-    $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
-    $(LOCAL_PATH)/configs/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
-    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
-
-# Media
- PRODUCT_PACKAGES += \
-    libc2dcolorconvert \
-    libdivxdrmdecrypt \
-    libdashplayer \
-    libOmxAacEnc \
-    libOmxAmrEnc \
-    libOmxCore \
-    libOmxEvrcEnc \
-    libOmxQcelp13Enc \
-    libOmxVdec \
-    libOmxVdecHevc \
-    libOmxVenc \
-    libstagefrighthw \
-    qcmediaplayer
-
-# Power
-PRODUCT_PACKAGES += \
-    power.msm8974
-
-# Keylayouts
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/keylayout/msm8974-taiko-cdp-snd-card_Button_Jack.kl:system/usr/keylayout/msm8974-taiko-cdp-snd-card_Button_Jack.kl \
-    $(LOCAL_PATH)/keylayout/qpnp_pon.kl:system/usr/keylayout/qpnp_pon.kl \
-    $(LOCAL_PATH)/keylayout/shtps_key.kl:system/usr/keylayout/shtps_key.kl \
-    $(LOCAL_PATH)/keylayout/shtps_rmi.kl:system/usr/keylayout/shtps_rmi.kl
-
-# Keystore
-PRODUCT_PACKAGES += \
-    keystore.msm8974
-
-# QSEECom
-PRODUCT_PACKAGES += \
-    libssd
-
-# Thermal
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine-8974.conf
-
-# USB
-PRODUCT_PACKAGES += \
-    com.android.future.usb.accessory
-
-# Data
-PRODUCT_PACKAGES += \
-    librmnetctl
-
-# WiFi
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)//wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
-    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
-    $(LOCAL_PATH)/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
-
-PRODUCT_PACKAGES += \
-    dhcpcd.conf \
-    libwpa_client \
-    hostapd \
-    wpa_supplicant \
-    wpa_supplicant.conf \
-    wpa_supplicant_overlay.conf \
-    p2p_supplicant_overlay.conf \
-    hostapd_default.conf \
-    hostapd.accept \
-    hostapd.deny
-
-PRODUCT_PACKAGES += \
-    wcnss_service
-
-# Misc dependencies
-PRODUCT_PACKAGES += \
-    ebtables \
-    ethertypes \
-    curl \
-    libnl_2 \
-    libbson \
-    libcnefeatureconfig \
-    libtinyxml \
-    libxml2
-
-# ANT+
-PRODUCT_PACKAGES += \
-    AntHalService \
-    com.dsi.ant.antradio_library \
-    libantradio
-
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    camera2.portability.force_api=1
+# call hwui memory config
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -247,19 +53,171 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml
 
-# Device uses high-density artwork where available
-PRODUCT_AAPT_CONFIG := normal
-PRODUCT_AAPT_PREF_CONFIG := xxhdpi
+# ANT+
+PRODUCT_PACKAGES += \
+    AntHalService \
+    com.dsi.ant.antradio_library \
+    libantradio
 
-# call dalvik heap config
-$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
+# Ramdisk
+PRODUCT_PACKAGES += \
+    init.qcom.bt.sh \
+    init.qcom-common.rc \
+    ueventd.qcom.rc \
+    fstab.qcom \
+    init.qcom.rc \
+    init.qcom.sh \
+    init.qcom.power.rc \
+    init.qcom.usb.rc \
+    init.recovery.qcom.rc
 
-# call hwui memory config
-$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
+# Audio
+PRODUCT_PACKAGES += \
+    audiod \
+    audio.a2dp.default \
+    audio_amplifier.msm8974 \
+    audio_policy.msm8974 \
+    audio.primary.msm8974 \
+    audio.r_submix.default \
+    audio.usb.default \
+    libqcompostprocbundle \
+    libqcomvisualizer \
+    libqcomvoiceprocessing \
+    tinymix
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml
+
+# Camera
+PRODUCT_PACKAGES += \
+    camera.msm8974 \
+    libboringssl-compat \
+    libstlport \
+    Snap
+
+# Graphics
+PRODUCT_PACKAGES += \
+    copybit.msm8974 \
+    gralloc.msm8974 \
+    hwcomposer.msm8974 \
+    memtrack.msm8974 \
+    liboverlay
+
+# GPS
+PRODUCT_PACKAGES += \
+    gps.msm8974
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
+    $(LOCAL_PATH)/gps/izat.conf:system/etc/izat.conf \
+    $(LOCAL_PATH)/gps/quipc.conf:system/etc/quipc.conf \
+    $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf \
+    $(LOCAL_PATH)/gps/flp.conf:system/etc/flp.conf
+
+# IPC Security config
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
+
+# IPv6
+PRODUCT_PACKAGES += \
+    ebtables \
+    ethertypes
+
+# Keylayouts
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/keylayout/msm8974-taiko-cdp-snd-card_Button_Jack.kl:system/usr/keylayout/msm8974-taiko-cdp-snd-card_Button_Jack.kl \
+    $(LOCAL_PATH)/keylayout/qpnp_pon.kl:system/usr/keylayout/qpnp_pon.kl \
+    $(LOCAL_PATH)/keylayout/shtps_key.kl:system/usr/keylayout/shtps_key.kl \
+    $(LOCAL_PATH)/keylayout/shtps_rmi.kl:system/usr/keylayout/shtps_rmi.kl
+
+# Keystore
+PRODUCT_PACKAGES += \
+    keystore.msm8974
+
+# Light
+PRODUCT_PACKAGES += \
+    lights.msm8974
+
+# Media
+PRODUCT_COPY_FILES += \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
+    $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/configs/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
+    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
+
+# OMX
+PRODUCT_PACKAGES += \
+    libc2dcolorconvert \
+    libdivxdrmdecrypt \
+    libdashplayer \
+    libOmxAacEnc \
+    libOmxAmrEnc \
+    libOmxCore \
+    libOmxEvrcEnc \
+    libOmxQcelp13Enc \
+    libOmxVdec \
+    libOmxVdecHevc \
+    libOmxVenc \
+    libstagefrighthw \
+    qcmediaplayer
+
+# Overlays
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay
+
+# Power
+PRODUCT_PACKAGES += \
+    power.msm8974
+
+# QSEECom
+PRODUCT_PACKAGES += \
+    libssd
+
+# RIL
+PRODUCT_PACKAGES += \
+    libbson \
+    libcnefeatureconfig \
+    libnl_2 \
+    libxml2 \
+    libtinyxml
+
+# Thermal
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine-8974.conf
+
+# USB
+PRODUCT_PACKAGES += \
+    com.android.future.usb.accessory
+
+# Data
+PRODUCT_PACKAGES += \
+    librmnetctl \
+    rmnetcli
+
+# WiFi
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)//wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
+
+PRODUCT_PACKAGES += \
+    dhcpcd.conf \
+    libwpa_client \
+    hostapd \
+    wpa_supplicant \
+    wpa_supplicant.conf \
+    wpa_supplicant_overlay.conf \
+    p2p_supplicant_overlay.conf \
+    hostapd_default.conf \
+    hostapd.accept \
+    hostapd.deny
+
+PRODUCT_PACKAGES += \
+    wcnss_service
 
 # call the proprietary setup
 $(call inherit-product-if-exists, vendor/sharp/pa26/pa26-vendor.mk)
-
-ifneq ($(QCPATH),)
-$(call inherit-product-if-exists, $(QCPATH)/prebuilt_HY11/target/product/msm8974/prebuilt.mk)
-endif
