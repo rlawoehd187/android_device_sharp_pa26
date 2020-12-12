@@ -21,15 +21,10 @@ $(call inherit-product, device/sharp/pa26/pa26.mk)
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
-PRODUCT_NAME := cm_pa26
+PRODUCT_NAME := lineage_pa26
 PRODUCT_DEVICE := pa26
 PRODUCT_MANUFACTURER := Sharp
 PRODUCT_MODEL := 402SH
+PRODUCT_BRAND := Aquos
 
 PRODUCT_GMS_CLIENTID_BASE := android-sharp
-
-PRODUCT_BRAND := Sharp
-TARGET_VENDOR := sharp
-TARGET_VENDOR_PRODUCT_NAME := pa26
-TARGET_VENDOR_DEVICE_NAME := 402SH
-PRODUCT_BUILD_PROP_OVERRIDES += TARGET_DEVICE=402SH PRODUCT_NAME=pa26
