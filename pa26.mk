@@ -88,10 +88,6 @@ PRODUCT_PACKAGES += \
     camera.msm8974 \
     Snap
 
-# Doze
-PRODUCT_PACKAGES += \
-    SharpDoze
-
 # Filesystem
 PRODUCT_PACKAGES += \
     make_ext4fs \
