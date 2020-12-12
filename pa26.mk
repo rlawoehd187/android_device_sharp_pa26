@@ -61,15 +61,13 @@ PRODUCT_PACKAGES += \
 
 # Ramdisk
 PRODUCT_PACKAGES += \
-    init.qcom.bt.sh \
-    init.qcom-common.rc \
-    ueventd.qcom.rc \
     fstab.qcom \
     init.qcom.rc \
     init.qcom.sh \
     init.qcom.power.rc \
     init.qcom.usb.rc \
-    init.recovery.qcom.rc
+    init.qcom.bt.sh \
+    ueventd.qcom.rc \
 
 # Audio
 PRODUCT_PACKAGES += \
